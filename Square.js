@@ -30,7 +30,7 @@
      sinalLados: [1, 1],
      grau: 0,
      taxaDeAumento: toRadians(-2),
-     origem: [100, 100],
+     origem: [200, 200],
      incrementaGrau() {
          this.grau = (this.grau + this.taxaDeAumento) % 360;
      },
