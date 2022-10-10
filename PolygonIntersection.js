@@ -5,7 +5,7 @@
  * 		Interseção entre cí­rculos e polí­gonos convexos.
  * 	</p>
  *
- *  @author Markson Arguello
+ *  @author Lucas Moreno Silva
  *  @since 10/10/2022
  */
 
