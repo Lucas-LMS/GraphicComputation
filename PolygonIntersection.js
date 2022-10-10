@@ -9,8 +9,6 @@
  *  @since 10/10/2022
  */
 
-'use strict';
-
 /**
  * Two dimensional vector.
  * @type {glvec2}
