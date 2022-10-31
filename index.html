@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Hierarchy</title>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="600" height="400">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <p>Keyboard controls:</p>
+
+        <ul style="list-style: none">
+			<li>l, L - head rotation</li>
+            <li>t, T - torso rotation</li>
+            <li>s, S - <strong style="color: red;"> left </strong> shoulder rotation</li>
+            <li>a, A - <strong style="color: red;"> left </strong> arm rotation</li>
+            <li>h, H - <strong style="color: red;"> left </strong> hand rotation</li>
+            <li>p, P - <strong style="color: red;"> left </strong> thigh rotation</li>
+            <li>i, I - <strong style="color: red;"> left </strong> shin rotation</li>
+            <li>u, U - <strong style="color: red;"> left </strong> foot rotation</li>
+
+            <li>o, O - <strong style="color: blue;"> right </strong> shoulder rotation</li>
+            <li>e, E - <strong style="color: blue;"> right </strong> arm rotation</li>
+            <li>j, J - <strong style="color: blue;"> right </strong> hand rotation</li>
+            <li>b, B - <strong style="color: blue;"> right </strong> thigh rotation</li>
+            <li>n, N - <strong style="color: blue;"> right </strong> shin rotation</li>
+            <li>m, M - <strong style="color: blue;"> right </strong> foot rotation</li>
+
+            
+            <li id="options"></li>
+        </ul>
+
+        <script id="vertexLightingShader" type="x-shader/x-vertex">
+            uniform mat4 model;
+            uniform mat4 view;
+            uniform mat4 projection;
+            uniform vec4 u_Color;
+            uniform mat3 normalMatrix;
+            uniform vec4 lightPosition;
+
+            attribute vec4 a_Position;
+            attribute vec3 a_Normal;
+
+            varying vec4 color;
+            void main()
+            {
+              float ambientFactor = 0.3;
+              vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
+              //vec3 normal = (view * model * vec4(a_Normal, 0.0)).xyz;
+              vec3 normal = normalize(normalMatrix * a_Normal);
+              float diffuseFactor = max(0.0, dot(lightDirection, normal));
+              color = u_Color * diffuseFactor + u_Color * ambientFactor;
+              color.a = 1.0;
+              gl_Position = projection * view * model * a_Position;
+            }
+        </script>
+
+        <script id="fragmentLightingShader" type="x-shader/x-fragment">
+            precision mediump float;
+            varying vec4 color;
+            void main()
+            {
+              gl_FragColor = color;
+            }
+        </script>
+        <script src="./teal_book/cuon-utils.js"></script>
+        <script src="./teal_book/cuon-matrix.js"></script>
+        <script src="Hierarchy.js"></script>
+    </body>
+</html>
